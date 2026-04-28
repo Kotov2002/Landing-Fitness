@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAXFORM | Transformación Real en 90 Días</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;0,900;1,900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0A0A0A;
+    --white: #F2F2F0;
+    --lime: #CAFF00;
+    --red: #FF3131;
+    --gray: #888;
+    --card: #141414;
+    --border: #222;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    overflow-x: hidden;
+    cursor: crosshair;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 0 48px;
+    height: 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--black);
+    border-bottom: 2px solid var(--lime);
+  }
+
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 3px;
+    color: var(--lime);
+  }
+
+  .nav-cta {
+    background: var(--lime);
+    color: var(--black);
+    padding: 10px 28px;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 900;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    transition: background 0.2s;
+  }
+
+  .nav-cta:hover { background: #fff; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    padding: 120px 48px 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: 'MAX';
+    position: absolute;
+    right: -60px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32vw;
+    color: rgba(202,255,0,0.03);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .hero-left { position: relative; z-index: 2; }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .hero-tag-line {
+    width: 40px;
+    height: 2px;
+    background: var(--lime);
+  }
+
+  .hero-tag span {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--lime);
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 8vw, 8rem);
+    line-height: 0.9;
+    letter-spacing: 2px;
+    margin-bottom: 32px;
+  }
+
+  .hero h1 .highlight {
+    -webkit-text-stroke: 2px var(--lime);
+    color: transparent;
+  }
+
+  .hero h1 .solid { color: var(--lime); }
+
+  .hero-desc {
+    font-size: 1.1rem;
+    color: var(--gray);
+    line-height: 1.7;
+    max-width: 440px;
+    margin-bottom: 40px;
+    font-weight: 400;
+  }
+
+  .hero-desc strong { color: var(--white); font-weight: 700; }
+
+  .hero-buttons {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--lime);
+    color: var(--black);
+    padding: 18px 40px;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 900;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+    transition: background 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { background: #fff; transform: translateY(-2px); }
+
+  .btn-secondary {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--gray);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s;
+  }
+
+  .btn-secondary:hover { color: var(--white); }
+
+  .hero-right {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* FLOATING STATS */
+  .float-stat {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--lime);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    animation: slideIn 0.6s ease both;
+  }
+
+  .float-stat:nth-child(1) { animation-delay: 0.1s; margin-left: 0; }
+  .float-stat:nth-child(2) { animation-delay: 0.2s; margin-left: 40px; }
+  .float-stat:nth-child(3) { animation-delay: 0.3s; margin-left: 20px; }
+  .float-stat:nth-child(4) { animation-delay: 0.4s; margin-left: 60px; }
+
+  .float-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem;
+    color: var(--lime);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .float-info span {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  .float-info strong {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--white);
+  }
+
+  /* MARQUEE */
+  .marquee-wrap {
+    border-top: 2px solid var(--lime);
+    border-bottom: 2px solid var(--lime);
+    padding: 18px 0;
+    overflow: hidden;
+    background: var(--black);
+  }
+
+  .marquee-track {
+    display: flex;
+    gap: 0;
+    animation: marquee 18s linear infinite;
+    width: max-content;
+  }
+
+  .marquee-item {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 4px;
+    color: var(--white);
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    white-space: nowrap;
+  }
+
+  .marquee-item .dot {
+    width: 8px; height: 8px;
+    background: var(--lime);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* TRANSFORMATIONS */
+  .transforms {
+    padding: 100px 48px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 60px;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .section-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--lime);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-eyebrow::before {
+    content: '';
+    width: 30px; height: 2px;
+    background: var(--lime);
+  }
+
+  .section-h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.4rem, 5vw, 4.5rem);
+    line-height: 0.95;
+    letter-spacing: 2px;
+  }
+
+  .section-h2 em {
+    font-style: italic;
+    -webkit-text-stroke: 1.5px var(--white);
+    color: transparent;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 900;
+    font-size: 0.7em;
+    letter-spacing: 0;
+  }
+
+  .transforms-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--border);
+  }
+
+  .transform-card {
+    background: var(--card);
+    padding: 36px 28px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+
+  .transform-card:hover { background: #1A1A1A; }
+
+  .transform-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--lime);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  .transform-card:hover::after { transform: scaleX(1); }
+
+  .transform-before-after {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .before, .after {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+  }
+
+  .before { color: var(--gray); }
+  .after { color: var(--lime); }
+
+  .arrow-right {
+    font-size: 1.2rem;
+    color: var(--red);
+  }
+
+  .transform-name {
+    font-weight: 800;
+    font-size: 1rem;
+    margin-bottom: 4px;
+  }
+
+  .transform-detail {
+    font-size: 0.8rem;
+    color: var(--gray);
+    margin-bottom: 16px;
+  }
+
+  .transform-quote {
+    font-size: 0.9rem;
+    color: #aaa;
+    line-height: 1.6;
+    font-style: italic;
+    border-left: 2px solid var(--lime);
+    padding-left: 14px;
+  }
+
+  .transform-time {
+    display: inline-block;
+    margin-top: 16px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--lime);
+    background: rgba(202,255,0,0.08);
+    padding: 4px 12px;
+  }
+
+  /* PROGRAM */
+  .program {
+    background: var(--lime);
+    padding: 100px 48px;
+  }
+
+  .program-inner { max-width: 1200px; margin: 0 auto; }
+
+  .program h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 6vw, 6rem);
+    color: var(--black);
+    letter-spacing: 2px;
+    line-height: 0.9;
+    margin-bottom: 60px;
+  }
+
+  .program-phases {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .phase {
+    background: var(--black);
+    padding: 36px 28px;
+    position: relative;
+  }
+
+  .phase-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 5rem;
+    color: rgba(202,255,0,0.15);
+    line-height: 1;
+    position: absolute;
+    top: 16px; right: 20px;
+  }
+
+  .phase-tag {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--lime);
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .phase h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+    color: var(--white);
+    margin-bottom: 16px;
+    line-height: 1;
+  }
+
+  .phase p {
+    font-size: 0.875rem;
+    color: var(--gray);
+    line-height: 1.7;
+  }
+
+  .phase-weeks {
+    margin-top: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--lime);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* BENEFITS */
+  .benefits {
+    padding: 100px 48px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    background: var(--border);
+    margin-top: 60px;
+  }
+
+  .benefit {
+    background: var(--card);
+    padding: 32px 28px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    transition: background 0.2s;
+  }
+
+  .benefit:hover { background: #161616; }
+
+  .benefit-icon {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--lime);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 48px;
+    text-align: center;
+  }
+
+  .benefit h4 {
+    font-weight: 800;
+    font-size: 1rem;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+  }
+
+  .benefit p {
+    font-size: 0.875rem;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+
+  /* FAQ */
+  .faq {
+    padding: 100px 48px;
+    background: #0D0D0D;
+    border-top: 2px solid var(--border);
+  }
+
+  .faq-inner { max-width: 800px; margin: 0 auto; }
+
+  .faq-list { margin-top: 60px; }
+
+  .faq-item { border-bottom: 1px solid var(--border); }
+
+  .faq-btn {
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: left;
+    padding: 24px 0;
+    cursor: crosshair;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    transition: color 0.2s;
+  }
+
+  .faq-btn:hover { color: var(--lime); }
+
+  .faq-btn .faq-icon {
+    width: 32px; height: 32px;
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 300;
+    flex-shrink: 0;
+    transition: all 0.3s;
+    color: var(--gray);
+  }
+
+  .faq-item.open .faq-btn { color: var(--lime); }
+
+  .faq-item.open .faq-icon {
+    background: var(--lime);
+    color: var(--black);
+    border-color: var(--lime);
+    transform: rotate(45deg);
+    font-weight: 900;
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    font-size: 0.95rem;
+    color: var(--gray);
+    line-height: 1.8;
+  }
+
+  .faq-item.open .faq-answer {
+    max-height: 300px;
+    padding-bottom: 24px;
+  }
+
+  /* CTA FINAL */
+  .cta-final {
+    padding: 120px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-final::before {
+    content: '90';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 60vw;
+    color: rgba(202,255,0,0.03);
+    line-height: 1;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .cta-final h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 8vw, 7rem);
+    line-height: 0.9;
+    letter-spacing: 2px;
+    margin-bottom: 24px;
+    position: relative;
+  }
+
+  .cta-final h2 .outline {
+    -webkit-text-stroke: 2px var(--lime);
+    color: transparent;
+  }
+
+  .cta-final p {
+    font-size: 1.1rem;
+    color: var(--gray);
+    margin-bottom: 40px;
+    position: relative;
+  }
+
+  .cta-wrap {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+  .cta-note {
+    margin-top: 20px;
+    font-size: 0.8rem;
+    color: var(--gray);
+    letter-spacing: 1px;
+    font-weight: 600;
+    text-transform: uppercase;
+    position: relative;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--card);
+    border-top: 2px solid var(--lime);
+    padding: 40px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 3px;
+    color: var(--lime);
+  }
+
+  .footer-legal {
+    font-size: 0.75rem;
+    color: var(--gray);
+    line-height: 1.8;
+    max-width: 600px;
+    text-align: right;
+  }
+
+  .footer-legal a { color: var(--gray); }
+
+  /* KEYFRAMES */
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 0 20px; }
+    .hero { grid-template-columns: 1fr; padding: 100px 24px 60px; }
+    .hero::after { display: none; }
+    .float-stat { margin-left: 0 !important; }
+    .transforms-grid { grid-template-columns: 1fr; }
+    .program-phases { grid-template-columns: 1fr; }
+    .benefits-grid { grid-template-columns: 1fr; }
+    .transforms, .benefits, .faq, .cta-final { padding: 70px 24px; }
+    .program { padding: 70px 24px; }
+    footer { padding: 32px 24px; flex-direction: column; text-align: center; }
+    .footer-legal { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">MAXFORM</div>
+  <a href="#cta" class="nav-cta">Empezar ahora</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">
+      <div class="hero-tag-line"></div>
+      <span>Transformación garantizada o devolvemos tu dinero</span>
+    </div>
+    <h1>
+      TU<br>
+      <span class="highlight">MEJOR</span><br>
+      <span class="solid">CUERPO.</span><br>
+      90 DÍAS.
+    </h1>
+    <p class="hero-desc">
+      Sin excusas. Sin fórmulas mágicas. Solo <strong>un sistema que funciona</strong> porque está diseñado específicamente para vos, tu cuerpo y tu vida.
+    </p>
+    <div class="hero-buttons">
+      <a href="#cta" class="btn-primary">Quiero transformarme →</a>
+      <a href="#resultados" class="btn-secondary">Ver resultados ↓</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="float-stat">
+      <div class="float-num">847</div>
+      <div class="float-info">
+        <span>Personas transformadas</span>
+        <strong>Solo en los últimos 12 meses</strong>
+      </div>
+    </div>
+    <div class="float-stat">
+      <div class="float-num">-18</div>
+      <div class="float-info">
+        <span>Promedio de pérdida</span>
+        <strong>Kilos en 90 días</strong>
+      </div>
+    </div>
+    <div class="float-stat">
+      <div class="float-num">96%</div>
+      <div class="float-info">
+        <span>Tasa de éxito</span>
+        <strong>Clientes que terminan el programa</strong>
+      </div>
+    </div>
+    <div class="float-stat">
+      <div class="float-num">4.9</div>
+      <div class="float-info">
+        <span>Calificación promedio</span>
+        <strong>Sobre 5 estrellas · +600 reseñas</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="marquee-item">Sin dietas trampa <span class="dot"></span></div>
+    <div class="marquee-item">Entrenamiento personalizado <span class="dot"></span></div>
+    <div class="marquee-item">Resultados reales <span class="dot"></span></div>
+    <div class="marquee-item">90 días de transformación <span class="dot"></span></div>
+    <div class="marquee-item">Garantía total <span class="dot"></span></div>
+    <div class="marquee-item">Seguimiento diario <span class="dot"></span></div>
+    <div class="marquee-item">Sin excusas <span class="dot"></span></div>
+    <div class="marquee-item">Sin dietas trampa <span class="dot"></span></div>
+    <div class="marquee-item">Entrenamiento personalizado <span class="dot"></span></div>
+    <div class="marquee-item">Resultados reales <span class="dot"></span></div>
+    <div class="marquee-item">90 días de transformación <span class="dot"></span></div>
+    <div class="marquee-item">Garantía total <span class="dot"></span></div>
+    <div class="marquee-item">Seguimiento diario <span class="dot"></span></div>
+    <div class="marquee-item">Sin excusas <span class="dot"></span></div>
+  </div>
+</div>
+
+<!-- TRANSFORMACIONES -->
+<section class="transforms" id="resultados">
+  <div class="section-header">
+    <div>
+      <div class="section-eyebrow">Transformaciones reales</div>
+      <h2 class="section-h2">ELLOS LO<br>LOGRARON.<br><em>vos también podés.</em></h2>
+    </div>
+  </div>
+
+  <div class="transforms-grid">
+    <div class="transform-card">
+      <div class="transform-before-after">
+        <span class="before">98kg</span>
+        <span class="arrow-right">→</span>
+        <span class="after">74kg</span>
+      </div>
+      <div class="transform-name">Sebastián M.</div>
+      <div class="transform-detail">32 años · Empleado de oficina · Buenos Aires</div>
+      <p class="transform-quote">"Probé mil dietas y nada funcionaba. Con MAXFORM entendí que el problema no era yo, era el método. En 90 días perdí 24 kilos y lo que es mejor, no los recuperé."</p>
+      <span class="transform-time">✓ 90 días · Verificado</span>
+    </div>
+    <div class="transform-card">
+      <div class="transform-before-after">
+        <span class="before">Sin músculo</span>
+        <span class="arrow-right">→</span>
+        <span class="after">+12kg</span>
+      </div>
+      <div class="transform-name">Valentina R.</div>
+      <div class="transform-detail">27 años · Diseñadora · Medellín</div>
+      <p class="transform-quote">"Siempre fui flaca y creía que no podía ganar músculo. En 3 meses cambié completamente mi composición corporal sin perder mi femineidad."</p>
+      <span class="transform-time">✓ 90 días · Verificado</span>
+    </div>
+    <div class="transform-card">
+      <div class="transform-before-after">
+        <span class="before">112kg</span>
+        <span class="arrow-right">→</span>
+        <span class="after">82kg</span>
+      </div>
+      <div class="transform-name">Rodrigo T.</div>
+      <div class="transform-detail">45 años · Empresario · Santiago</div>
+      <p class="transform-quote">"Con 45 años y sin tiempo pensé que era imposible. Ajustaron el programa a mi ritmo y a mis horarios. 30 kilos menos y con más energía que a los 30."</p>
+      <span class="transform-time">✓ 90 días · Verificado</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMA -->
+<section class="program">
+  <div class="program-inner">
+    <h2>EL PROGRAMA<br>EN 3 FASES.</h2>
+    <div class="program-phases">
+      <div class="phase">
+        <span class="phase-num">01</span>
+        <span class="phase-tag">Semanas 1 — 4</span>
+        <h3>ACTIVACIÓN Y BASE</h3>
+        <p>Diagnóstico completo, plan de alimentación personalizado y rutina de entrenamiento adaptada a tu nivel actual. Activamos tu metabolismo de forma inteligente.</p>
+        <div class="phase-weeks">→ Primeras 4 semanas</div>
+      </div>
+      <div class="phase">
+        <span class="phase-num">02</span>
+        <span class="phase-tag">Semanas 5 — 8</span>
+        <h3>ACELERACIÓN</h3>
+        <p>Aumentamos la intensidad de forma progresiva. Aquí es donde ocurre la mayor transformación visible. Tu cuerpo ya está adaptado y preparado para el siguiente nivel.</p>
+        <div class="phase-weeks">→ El punto de quiebre</div>
+      </div>
+      <div class="phase">
+        <span class="phase-num">03</span>
+        <span class="phase-tag">Semanas 9 — 12</span>
+        <h3>DEFINICIÓN Y CIERRE</h3>
+        <p>Afinamos los últimos detalles y te enseñamos a mantener y continuar los resultados por tu cuenta. No terminás dependiendo de nosotros, terminás independiente.</p>
+        <div class="phase-weeks">→ El resultado final</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits">
+  <div class="section-eyebrow">Lo que incluye</div>
+  <h2 class="section-h2" style="margin-bottom: 0;">TODO LO<br>QUE NECESITÁS.</h2>
+
+  <div class="benefits-grid">
+    <div class="benefit">
+      <div class="benefit-icon">🎯</div>
+      <div>
+        <h4>Plan 100% personalizado</h4>
+        <p>No hay dos personas iguales. Tu plan de alimentación y entrenamiento se construye específicamente para tu cuerpo, tus objetivos y tu estilo de vida.</p>
+      </div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">📱</div>
+      <div>
+        <h4>Seguimiento diario por WhatsApp</h4>
+        <p>Tu coach está disponible todos los días para responder dudas, ajustar el plan y mantenerte motivado. No estás solo en ningún momento.</p>
+      </div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">🥗</div>
+      <div>
+        <h4>Nutrición sin restricciones extremas</h4>
+        <p>Nada de dietas imposibles. Aprendés a comer bien sin dejar de disfrutar la comida. Sostenible en el tiempo, no solo para 90 días.</p>
+      </div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">💪</div>
+      <div>
+        <h4>Entrenamiento desde casa o gym</h4>
+        <p>El programa funciona con o sin equipamiento. Tu entrenador adapta cada rutina a los recursos que tenés disponibles.</p>
+      </div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">📊</div>
+      <div>
+        <h4>Mediciones semanales</h4>
+        <p>Seguimos tu progreso con métricas reales: peso, medidas, fotos de progreso y ajustes del plan según tus resultados semana a semana.</p>
+      </div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">🔒</div>
+      <div>
+        <h4>Garantía de resultados</h4>
+        <p>Si seguís el programa al pie de la letra y no obtenés resultados, te devolvemos el dinero. Sin letra chica, sin excusas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA MEDIO -->
+<div style="background: var(--red); padding: 60px 48px; text-align: center;">
+  <h2 style="font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 5vw, 4rem); color: var(--white); letter-spacing: 2px; margin-bottom: 20px; line-height: 1;">
+    LOS LUGARES SON LIMITADOS.<br>NO LO PIENSES MÁS.
+  </h2>
+  <a href="#cta" style="display: inline-block; background: var(--white); color: var(--red); padding: 18px 48px; font-family: 'Barlow', sans-serif; font-weight: 900; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);">
+    QUIERO EMPEZAR AHORA →
+  </a>
+</div>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="faq-inner">
+    <div class="section-eyebrow">FAQ</div>
+    <h2 class="section-h2">TUS DUDAS.<br>RESUELTAS.</h2>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          ¿Funciona si nunca hice ejercicio en mi vida?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">Sí. El programa se adapta a cualquier nivel de condición física. Tenemos clientes que arrancaron desde cero y obtuvieron resultados incluso más rápidos que personas con experiencia previa, porque no hay que "desaprender" hábitos malos.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          ¿Cuántas horas por día necesito dedicarle?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">Entre 45 y 60 minutos de entrenamiento, 4 a 5 días por semana. El plan de alimentación no requiere tiempo extra significativo, está pensado para integrarse a tu rutina actual sin que tengas que cocinar horas.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          ¿Funciona sin ir al gimnasio?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">Absolutamente. Tenemos programas completos para casa con y sin equipamiento. Lo único que necesitás es tu cuerpo y las ganas. El equipo se puede ir sumando gradualmente si querés, pero no es obligatorio.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          ¿En qué consiste la garantía de resultados?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">Si completás el programa al 100% durante los 90 días, hacés los check-ins semanales y no obtenés ningún resultado medible, te devolvemos el dinero íntegro. La condición es simple: tenés que haberlo hecho de verdad.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          ¿Cuándo puedo empezar?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">Dentro de las 48 horas de tu inscripción ya tenés tu plan personalizado y podés arrancar. No hay fechas de inicio fijas, el programa arranca cuando vos estás listo.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final" id="cta">
+  <h2>
+    TU<br>
+    <span class="outline">TRANSFORMACIÓN</span><br>
+    EMPIEZA HOY.
+  </h2>
+  <p>Reservá tu lugar ahora. Los cupos son limitados y se llenan rápido.</p>
+  <div class="cta-wrap">
+    <a href="https://calendly.com" target="_blank" class="btn-primary" style="font-size: 1rem; padding: 20px 52px;">
+      RESERVAR MI LUGAR →
+    </a>
+  </div>
+  <p class="cta-note">🔒 Solo 8 lugares disponibles este mes · Garantía total incluida</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">MAXFORM</div>
+  <div class="footer-legal">
+    © 2025 MAXFORM · Todos los derechos reservados.<br>
+    Los resultados mostrados son individuales y no representan garantía de resultados idénticos. Los resultados varían según cada persona.<br>
+    <a href="#">Política de Privacidad</a> · <a href="#">Términos y Condiciones</a>
+  </div>
+</footer>
+
+<script>
+function toggleFaq(btn) {
+  const item = btn.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+</script>
+
+</body>
+</html>
